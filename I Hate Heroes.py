@@ -1,13 +1,32 @@
 import pygame
 import random
 import sys
+from tkinter import *
+from tkinter import messagebox
+
+Tk().wm_withdraw()
+
+SiGongJoA = pygame.image.load('heroes.png')
+pygame.display.set_icon(SiGongJoA)
+
 
 def paintEntity(entity, x, y):
     monitor.blit(entity, (x, y))
 
+def getHX(twox):
+    onex = random.randrange(0,width-70)
+    if (onex < twox + 90) and (onex + 90 > twox):
+        getHX(twox)
+    return onex
+
+def getH2X(onex):
+    twox = random.randrange(0,width-70)
+    if (twox < onex + 90) and (twox + 90 > onex):
+        getH2X(onex)
+    return twox
+
 def playGame():
     global monitor, person, heroes
-
     personX = width/2 - (personSize[0]/2)
     dx = 0
 
@@ -15,8 +34,13 @@ def playGame():
     heroesSize = heroes.get_rect().size
     heroesX = random.randrange(0,width-heroesSize[0])
     heroesY = 0-heroesSize[0]
-    heroesSpeed = random.randrange(10,20)
+    heroesSpeed = random.randrange(5,10)
 
+    heroes2 = pygame.image.load('heroes.png')
+    heroes2Size = heroes.get_rect().size
+    heroes2X = getH2X(heroesX)
+    heroes2Y = 0-heroesSize[0]
+    heroes2Speed = random.randrange(10,15)
 
     while True:
         (pygame.time.Clock()).tick(100)
@@ -43,17 +67,29 @@ def playGame():
         paintEntity(person, personX, height-81)
 
         heroesY += heroesSpeed
+        heroes2Y += heroes2Speed
 
         if heroesY > height:
             heroesY = -heroesSize[0]
-            heroesX = random.randrange(0,width-heroesSize[0])
-            heroesSpeed = random.randrange(10, 20)
+            heroesX = getHX(heroes2X)
+            heroesSpeed = random.randrange(7, 20)
+
+        if heroes2Y > height:
+            heroes2Y = -heroes2Size[0]
+            heroes2X = getH2X(heroesX)
+            heroes2Speed = random.randrange(7, 20)
 
         paintEntity(heroes, heroesX, heroesY)
+        paintEntity(heroes2, heroes2X, heroes2Y)
 
-        if (height - 150 < heroesY < height):
-            if (personX < heroesX + 70) and (heroesX < personX + 40):
-                print("Game Over\n시공속으로 빨려들어갔습니다)
+        if (height - 120 < heroesY < height):
+            if (personX < heroesX + 55) and (heroesX < personX + 25):
+                messagebox.showinfo("Game Over", "시공속으로 빨려들어갔습니다")
+                break
+
+        if (height - 120 < heroes2Y < height):
+            if (personX < heroes2X + 55) and (heroes2X < personX + 25):
+                messagebox.showinfo("Game Over", "시공속으로 빨려들어갔습니다")
                 break
 
         pygame.display.update()
