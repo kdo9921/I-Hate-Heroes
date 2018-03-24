@@ -5,7 +5,6 @@ import sys
 def paintEntity(entity, x, y):
     monitor.blit(entity, (x, y))
 
-
 def playGame():
     global monitor, person, heroes
 
@@ -40,9 +39,11 @@ def playGame():
 
         if (0 < personX + dx and personX + dx <= width - personSize[0]):
             personX += dx
+
         paintEntity(person, personX, height-81)
 
         heroesY += heroesSpeed
+
         if heroesY > height:
             heroesY = -heroesSize[0]
             heroesX = random.randrange(0,width-heroesSize[0])
@@ -52,7 +53,7 @@ def playGame():
 
         if (height - 150 < heroesY < height):
             if (personX < heroesX + 70) and (heroesX < personX + 40):
-                print("Game Over\n 시공속으로 빨려들어갔습니다")
+                print("Game Over\n시공속으로 빨려들어갔습니다)
                 break
 
         pygame.display.update()
