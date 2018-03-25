@@ -9,21 +9,8 @@ Tk().wm_withdraw()
 SiGongJoA = pygame.image.load('heroes.png')
 pygame.display.set_icon(SiGongJoA)
 
-
 def paintEntity(entity, x, y):
     monitor.blit(entity, (x, y))
-
-def getHX(twox):
-    onex = random.randrange(0,width-70)
-    if (onex < twox + 90) and (onex + 90 > twox):
-        getHX(twox)
-    return onex
-
-def getH2X(onex):
-    twox = random.randrange(0,width-70)
-    if (twox < onex + 90) and (twox + 90 > onex):
-        getH2X(onex)
-    return twox
 
 def playGame():
     global monitor, person, heroes
@@ -38,9 +25,15 @@ def playGame():
 
     heroes2 = pygame.image.load('heroes.png')
     heroes2Size = heroes.get_rect().size
-    heroes2X = getH2X(heroesX)
-    heroes2Y = 0-heroesSize[0]
+    heroes2X = random.randrange(0,width-heroesSize[0])
+    heroes2Y = 0-heroes2Size[0]
     heroes2Speed = random.randrange(10,15)
+
+    heroes3 = pygame.image.load('heroes.png')
+    heroes3Size = heroes.get_rect().size
+    heroes3X = random.randrange(0,width-heroesSize[0])
+    heroes3Y = 0-heroes3Size[0]
+    heroes3Speed = random.randrange(7,13)
 
     while True:
         (pygame.time.Clock()).tick(100)
@@ -68,19 +61,26 @@ def playGame():
 
         heroesY += heroesSpeed
         heroes2Y += heroes2Speed
+        heroes3Y += heroes3Speed
 
         if heroesY > height:
             heroesY = -heroesSize[0]
-            heroesX = getHX(heroes2X)
+            heroesX = random.randrange(0,width-heroesSize[0])
             heroesSpeed = random.randrange(7, 20)
 
         if heroes2Y > height:
             heroes2Y = -heroes2Size[0]
-            heroes2X = getH2X(heroesX)
+            heroes2X = random.randrange(0,width-heroesSize[0])
             heroes2Speed = random.randrange(7, 20)
+        
+        if heroes3Y > height:
+            heroes3Y = -heroes3Size[0]
+            heroes3X = random.randrange(0,width-heroesSize[0])
+            heroes3Speed = random.randrange(7, 20)
 
         paintEntity(heroes, heroesX, heroesY)
         paintEntity(heroes2, heroes2X, heroes2Y)
+        paintEntity(heroes3, heroes3X, heroes3Y)
 
         if (height - 120 < heroesY < height):
             if (personX < heroesX + 55) and (heroesX < personX + 25):
@@ -89,6 +89,11 @@ def playGame():
 
         if (height - 120 < heroes2Y < height):
             if (personX < heroes2X + 55) and (heroes2X < personX + 25):
+                messagebox.showinfo("Game Over", "시공속으로 빨려들어갔습니다")
+                break
+
+        if (height - 120 < heroes3Y < height):
+            if (personX < heroes3X + 55) and (heroes3X < personX + 25):
                 messagebox.showinfo("Game Over", "시공속으로 빨려들어갔습니다")
                 break
 
