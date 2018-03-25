@@ -9,6 +9,18 @@ Tk().wm_withdraw()
 SiGongJoA = pygame.image.load('heroes.png')
 pygame.display.set_icon(SiGongJoA)
 
+width, height = 400, 600
+
+class Heroes:
+    heroes = pygame.image.load('heroes.png')
+    heroesSize = heroes.get_rect().size
+    heroesX = 0
+    heroesY = 0 - heroesSize[0]
+    heroesSpeed = 7
+
+def GetHeroesSpeed():
+    return random.randrange(7,20)
+    
 def paintEntity(entity, x, y):
     monitor.blit(entity, (x, y))
 
@@ -17,23 +29,17 @@ def playGame():
     personX = width/2 - (personSize[0]/2)
     dx = 0
 
-    heroes = pygame.image.load('heroes.png')
-    heroesSize = heroes.get_rect().size
-    heroesX = random.randrange(0,width-heroesSize[0])
-    heroesY = 0-heroesSize[0]
-    heroesSpeed = random.randrange(5,10)
+    h1 = Heroes()
+    h2 = Heroes()
+    h3 = Heroes()
 
-    heroes2 = pygame.image.load('heroes.png')
-    heroes2Size = heroes.get_rect().size
-    heroes2X = random.randrange(0,width-heroesSize[0])
-    heroes2Y = 0-heroes2Size[0]
-    heroes2Speed = random.randrange(10,15)
+    h1.heroesX = random.randrange(0,width-70)
+    h2.heroesX = random.randrange(0,width-70)
+    h3.heroesX = random.randrange(0,width-70)
 
-    heroes3 = pygame.image.load('heroes.png')
-    heroes3Size = heroes.get_rect().size
-    heroes3X = random.randrange(0,width-heroesSize[0])
-    heroes3Y = 0-heroes3Size[0]
-    heroes3Speed = random.randrange(7,13)
+    h1.heroesSpeed = random.randrange(5,10)
+    h2.heroesSpeed = random.randrange(7,13)
+    h3.heroesSpeed = random.randrange(10,15)
 
     while True:
         (pygame.time.Clock()).tick(100)
@@ -59,53 +65,52 @@ def playGame():
 
         paintEntity(person, personX, height-81)
 
-        heroesY += heroesSpeed
-        heroes2Y += heroes2Speed
-        heroes3Y += heroes3Speed
+        h1.heroesY += h1.heroesSpeed
+        h2.heroesY += h2.heroesSpeed
+        h3.heroesY += h3.heroesSpeed
 
-        if heroesY > height:
-            heroesY = -heroesSize[0]
-            heroesX = random.randrange(0,width-heroesSize[0])
-            heroesSpeed = random.randrange(7, 20)
+        if h1.heroesY > height:
+            h1.heroesY = -h1.heroesSize[0]
+            h1.heroesX = random.randrange(0,width-h1.heroesSize[0])
+            h1.heroesSpeed = GetHeroesSpeed()
 
-        if heroes2Y > height:
-            heroes2Y = -heroes2Size[0]
-            heroes2X = random.randrange(0,width-heroesSize[0])
-            heroes2Speed = random.randrange(7, 20)
+        if h2.heroesY > height:
+            h2.heroesY = -h2.heroesSize[0]
+            h2.heroesX = random.randrange(0,width-h2.heroesSize[0])
+            h2.heroesSpeed = GetHeroesSpeed()
         
-        if heroes3Y > height:
-            heroes3Y = -heroes3Size[0]
-            heroes3X = random.randrange(0,width-heroesSize[0])
-            heroes3Speed = random.randrange(7, 20)
+        if h3.heroesY > height:
+            h3.heroesY = -h3.heroesSize[0]
+            h3.heroesX = random.randrange(0,width-h3.heroesSize[0])
+            h3.heroesSpeed = GetHeroesSpeed()
 
-        paintEntity(heroes, heroesX, heroesY)
-        paintEntity(heroes2, heroes2X, heroes2Y)
-        paintEntity(heroes3, heroes3X, heroes3Y)
+        paintEntity(h1.heroes, h1.heroesX, h1.heroesY)
+        paintEntity(h2.heroes, h2.heroesX, h2.heroesY)
+        paintEntity(h3.heroes, h3.heroesX, h3.heroesY)
 
-        if (height - 120 < heroesY < height):
-            if (personX < heroesX + 55) and (heroesX < personX + 25):
+        if (height - 120 < h1.heroesY < height):
+            if (personX < h1.heroesX + 55) and (h1.heroesX < personX + 25):
                 messagebox.showinfo("Game Over", "시공속으로 빨려들어갔습니다")
                 break
 
-        if (height - 120 < heroes2Y < height):
-            if (personX < heroes2X + 55) and (heroes2X < personX + 25):
+        if (height - 120 < h2.heroesY < height):
+            if (personX < h2.heroesX + 55) and (h2.heroesX < personX + 25):
                 messagebox.showinfo("Game Over", "시공속으로 빨려들어갔습니다")
                 break
 
-        if (height - 120 < heroes3Y < height):
-            if (personX < heroes3X + 55) and (heroes3X < personX + 25):
+        if (height - 120 < h3.heroesY < height):
+            if (personX < h3.heroesX + 55) and (h3.heroesX < personX + 25):
                 messagebox.showinfo("Game Over", "시공속으로 빨려들어갔습니다")
                 break
 
         pygame.display.update()
 
-width, height = 400, 600
 monitor = None
-person, heroes, personSize = None, None, 0
+person, personSize = None, 0
 
 pygame.init()
 monitor = pygame.display.set_mode((width, height))
-pygame.display.set_caption("시공시러")
+pygame.display.set_caption("시.공.시.러!")
 
 person = pygame.image.load('person.png')
 personSize = person.get_rect().size
