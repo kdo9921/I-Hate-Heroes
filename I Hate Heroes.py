@@ -81,7 +81,7 @@ def playGame():
 
         for i in range(0, hms):
             paintEntity(SG[i].heroes, SG[i].heroesX, SG[i].heroesY)
-            if (height - 120 < SG[i].heroesY < height):
+            if (height - 120 < SG[i].heroesY < height-20):
                 if (personX < SG[i].heroesX + 55) and (SG[i].heroesX < personX + 25):
                     gameover()
 
