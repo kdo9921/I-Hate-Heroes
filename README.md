@@ -9,3 +9,7 @@
 pygame이 필요합니다. 터미널에 ```pip3 install pygame```를 입력하세요.
 
 width, height를 수정해 화면크기를, howManySigong을 수정해 몇개의 시공이 떨어질지 조정하실수 있습니다. 
+
+## 플레이 방법
+
+오른쪽, 왼쪽 방향키를 이용해 시공을 피하세요
