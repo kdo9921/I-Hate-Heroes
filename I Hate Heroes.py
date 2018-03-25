@@ -11,7 +11,7 @@ SiGongJoA = pygame.image.load('heroes.png')
 pygame.display.set_icon(SiGongJoA)
 
 width, height = 640, 480    #화면크기 설정
-howManySigong = 8   #난이도 설정 (낮을수록 쉽고 높을수록 어렵습니다)
+howManySigong = 7   #난이도 설정 (낮을수록 쉽고 높을수록 어렵습니다)
 
 class Heroes:
     heroes = pygame.image.load('heroes.png')
@@ -24,14 +24,15 @@ def GetHeroesSpeed():
     return random.randrange(7,20)
     
 def gameover():
-    messagebox.showinfo("Game Over", "시공속으로 빨려들어갔습니다")
+    messagebox.showinfo("Game Over", "시공속으로 빨려들어갔습니다\n\n\n점수 : %d" % gamePoint)
     sys.exit()
 
 def paintEntity(entity, x, y):
     monitor.blit(entity, (x, y))
 
 def playGame():
-    global monitor, person, heroes
+    global monitor, person, gamePoint
+    gamePoint = 0
     personX = width/2 - (personSize[0]/2)
     dx = 0
     hms = howManySigong
@@ -75,6 +76,7 @@ def playGame():
                 SG[i].heroesY = -SG[i].heroesSize[0]
                 SG[i].heroesX = random.randrange(0,width-SG[i].heroesSize[0])
                 SG[i].heroesSpeed = GetHeroesSpeed()
+                gamePoint += 1
 
         for i in range(0, hms):
             paintEntity(SG[i].heroes, SG[i].heroesX, SG[i].heroesY)
