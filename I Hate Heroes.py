@@ -10,8 +10,8 @@ Tk().wm_withdraw()
 SiGongJoA = pygame.image.load('heroes.png')
 pygame.display.set_icon(SiGongJoA)
 
-width, height = 400, 600    #화면크기 설정
-howManySigong = 3   #난이도 설정 (낮을수록 쉽고 높을수록 어렵습니다)
+width, height = 640, 480    #화면크기 설정
+howManySigong = 8   #난이도 설정 (낮을수록 쉽고 높을수록 어렵습니다)
 
 class Heroes:
     heroes = pygame.image.load('heroes.png')
