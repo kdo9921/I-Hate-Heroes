@@ -1,6 +1,7 @@
 import pygame
 import random
 import sys
+import multiprocessing
 from tkinter import *
 from tkinter import messagebox
 
@@ -21,6 +22,10 @@ class Heroes:
 def GetHeroesSpeed():
     return random.randrange(7,20)
     
+def gameover():
+    messagebox.showinfo("Game Over", "시공속으로 빨려들어갔습니다")
+    sys.exit()
+
 def paintEntity(entity, x, y):
     monitor.blit(entity, (x, y))
 
@@ -90,18 +95,15 @@ def playGame():
 
         if (height - 120 < h1.heroesY < height):
             if (personX < h1.heroesX + 55) and (h1.heroesX < personX + 25):
-                messagebox.showinfo("Game Over", "시공속으로 빨려들어갔습니다")
-                break
+                gameover()
 
         if (height - 120 < h2.heroesY < height):
             if (personX < h2.heroesX + 55) and (h2.heroesX < personX + 25):
-                messagebox.showinfo("Game Over", "시공속으로 빨려들어갔습니다")
-                break
+                gameover()
 
         if (height - 120 < h3.heroesY < height):
             if (personX < h3.heroesX + 55) and (h3.heroesX < personX + 25):
-                messagebox.showinfo("Game Over", "시공속으로 빨려들어갔습니다")
-                break
+                gameover()
 
         pygame.display.update()
 
