@@ -1,6 +1,7 @@
 import pygame
 import random
 import sys
+import time
 import multiprocessing
 from tkinter import *
 from tkinter import messagebox
@@ -17,7 +18,7 @@ class Heroes:
     heroes = pygame.image.load('heroes.png')
     heroesSize = heroes.get_rect().size
     heroesX = 0
-    heroesY = 0 - heroesSize[0]
+    heroesY = -height
     heroesSpeed = 7
 
 def GetHeroesSpeed():
@@ -43,7 +44,7 @@ def playGame():
         SG[i] = Heroes()
         SG[i].heroesX = random.randrange(0,width-70)
         SG[i].heroesSpeed = random.randrange(5,15)
-
+    
     while True:
         (pygame.time.Clock()).tick(100)
         monitor.fill((50,50,60))
