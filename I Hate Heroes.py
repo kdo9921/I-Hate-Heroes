@@ -25,6 +25,8 @@ def GetHeroesSpeed():
     return random.randrange(7,20)
     
 def gameover():
+    #pygame.mixer.music.stop()
+    #배경음악 관련된 코드입니다. 저작권 문제로 깃허브에는 업로드 하지 않겠습니다.
     messagebox.showinfo("Game Over", "시공속으로 빨려들어갔습니다\n\n\n점수 : %d" % gamePoint)
     sys.exit()
 
@@ -39,7 +41,11 @@ def playGame():
     hms = howManySigong
 
     SG = [0] * hms
-
+    '''
+    pygame.mixer.music.load('bgm.mp3')
+    pygame.mixer.music.play(-1)
+    #배경음악 관련된 코드입니다. 저작권 문제로 깃허브에는 업로드 하지 않겠습니다.
+    '''
     for i in range(0,hms):
         SG[i] = Heroes()
         SG[i].heroesX = random.randrange(0,width-70)
@@ -71,15 +77,12 @@ def playGame():
 
         for i in range(0, hms):
             SG[i].heroesY += SG[i].heroesSpeed
-
-        for i in range(0, hms):
             if SG[i].heroesY > height:
                 SG[i].heroesY = -SG[i].heroesSize[0]
                 SG[i].heroesX = random.randrange(0,width-SG[i].heroesSize[0])
                 SG[i].heroesSpeed = GetHeroesSpeed()
                 gamePoint += 1
 
-        for i in range(0, hms):
             paintEntity(SG[i].heroes, SG[i].heroesX, SG[i].heroesY)
             if (height - 120 < SG[i].heroesY < height-20):
                 if (personX < SG[i].heroesX + 55) and (SG[i].heroesX < personX + 25):
